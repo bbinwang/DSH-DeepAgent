@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { add, subtract, multiply } from './calculator.js';
+import { add, subtract, multiply, divide } from './calculator.js';
 
 // ---------- add ----------
 test('add: 正数相加', () => {
@@ -63,4 +63,37 @@ test('multiply: 乘一', () => {
 
 test('multiply: 小数（浮点容差）', () => {
   assert.ok(Math.abs(multiply(0.1, 0.2) - 0.02) < 1e-9);
+});
+
+// ---------- divide ----------
+test('divide: 正数相除', () => {
+  assert.equal(divide(12, 4), 3);
+});
+
+test('divide: 结果为分数', () => {
+  assert.equal(divide(3, 2), 1.5);
+});
+
+test('divide: 含负数', () => {
+  assert.equal(divide(-12, 4), -3);
+});
+
+test('divide: 两负数得正', () => {
+  assert.equal(divide(-12, -4), 3);
+});
+
+test('divide: 零作被除数', () => {
+  assert.equal(divide(0, 5), 0);
+});
+
+test('divide: 除以一', () => {
+  assert.equal(divide(7, 1), 7);
+});
+
+test('divide: 小数（浮点容差）', () => {
+  assert.ok(Math.abs(divide(0.3, 0.1) - 3) < 1e-9);
+});
+
+test('divide: 除数为 0 抛错', () => {
+  assert.throws(() => divide(5, 0), RangeError);
 });
